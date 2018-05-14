@@ -1,9 +1,11 @@
+
+import javax.swing.JFrame;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author alu20482156n
@@ -13,10 +15,23 @@ public class Cover extends javax.swing.JDialog {
     /**
      * Creates new form Cover
      */
+    private boolean modeSelected;
+
+    public static boolean personalizedMode;
+
+    private JFrame parentFrame;
+
+    public void setParentFrame(JFrame parentFrame) {
+        this.parentFrame = parentFrame;
+    }
+
     public Cover(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null); //centra el JPanel
+
+        modeSelected = false;
+        personalizedMode = true;
     }
 
     /**
@@ -28,25 +43,40 @@ public class Cover extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonGo = new javax.swing.JButton();
+        jButtonClassic = new javax.swing.JButton();
+        jButtonNoWalls = new javax.swing.JButton();
+        jButtonPersonalized = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1.setText("Go!");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGo.setText("Go!");
+        jButtonGo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonGoActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Snake Classic");
+        jButtonClassic.setText("Snake Classic");
+        jButtonClassic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClassicActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Snake without walls");
+        jButtonNoWalls.setText("Snake without walls");
+        jButtonNoWalls.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNoWallsActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Personalized");
+        jButtonPersonalized.setText("Personalized");
+        jButtonPersonalized.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPersonalizedActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,47 +86,67 @@ public class Cover extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(159, 159, 159)
-                        .addComponent(jButton1))
+                        .addComponent(jButtonGo))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(131, 131, 131)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4)
-                            .addComponent(jButton2))))
+                            .addComponent(jButtonPersonalized)
+                            .addComponent(jButtonClassic))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 113, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(jButtonNoWalls)
                 .addGap(109, 109, 109))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addComponent(jButton2)
+                .addComponent(jButtonClassic)
                 .addGap(33, 33, 33)
-                .addComponent(jButton3)
+                .addComponent(jButtonNoWalls)
                 .addGap(34, 34, 34)
-                .addComponent(jButton4)
+                .addComponent(jButtonPersonalized)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jButtonGo)
                 .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButtonGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoActionPerformed
+        if (modeSelected) {
+            dispose();
+        }
 
-  
+    }//GEN-LAST:event_jButtonGoActionPerformed
+
+    private void jButtonClassicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClassicActionPerformed
+        ConfigSingleton.getInstance().setNoWalls(false);
+        modeSelected = true;
+
+    }//GEN-LAST:event_jButtonClassicActionPerformed
+
+    private void jButtonNoWallsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNoWallsActionPerformed
+        ConfigSingleton.getInstance().setNoWalls(true);
+        modeSelected = true;
+
+    }//GEN-LAST:event_jButtonNoWallsActionPerformed
+
+    private void jButtonPersonalizedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPersonalizedActionPerformed
+        personalizedMode = true;
+
+        Personalized personalized = new Personalized(parentFrame, true);
+        personalized.setVisible(true);
+        modeSelected = true;
+    }//GEN-LAST:event_jButtonPersonalizedActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonClassic;
+    private javax.swing.JButton jButtonGo;
+    private javax.swing.JButton jButtonNoWalls;
+    private javax.swing.JButton jButtonPersonalized;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,10 +16,20 @@ public class ConfigSingleton {
 
     private int score;
     private int level;
-    private int deltaTime;
     private boolean noWalls;
+    // private boolean personalizedMode;
+
     private int numRows;
     private int numCols;
+    private int deltaTime;
+
+    /*private static int numRows;
+    private static int numCols;
+    private static int deltaTime;*/
+    private int deltaTimeInit;
+
+    private Personalized personalized;
+    //private Cover cover;
 
     public int getScore() {
         return score;
@@ -45,15 +55,63 @@ public class ConfigSingleton {
         this.deltaTime = deltaTime;
     }
 
+    /*private ConfigSingleton() {
+
+        score = 0;
+        level = 1;
+        noWalls = false;
+        numCols = 20;
+        numRows = 20;
+   
+       if(Cover.personalizedMode){
+           deltaTime=Integer.parseInt(personalized.getjTextFieldSpeed().getText());
+       }else{
+           deltaTime = 200;
+       }
+  
+        deltaTimeInit = deltaTime;
+ 
+        System.out.println(deltaTime);
+
+    }*/
+
+ /*private ConfigSingleton() {
+
+        score = 0;
+        level = 1;
+        noWalls = false;
+        numCols = 20;
+        numRows = 20;
+        deltaTime = 1500;
+        deltaTimeInit = deltaTime;
+        personalizedMode = false;
+
+    }*/
     private ConfigSingleton() {
 
         score = 0;
         level = 1;
-        deltaTime = 300;
         noWalls = false;
         numCols = 20;
         numRows = 20;
+        deltaTime = Integer.parseInt(personalized.jTextFieldSpeed);
+        deltaTimeInit = deltaTime;
 
+    }
+
+    /*private ConfigSingleton(int numCols, int numRows, int deltaTime) {
+
+        score = 0;
+        level = 1;
+        noWalls = false;
+        this.numCols = numCols;
+        this.numRows = numRows;
+        this.deltaTime = deltaTime;
+        deltaTimeInit = deltaTime;
+
+    }*/
+    public int getDeltaTimeInit() {
+        return deltaTimeInit;
     }
 
     public boolean getNoWalls() {
@@ -66,7 +124,16 @@ public class ConfigSingleton {
 
     public static ConfigSingleton getInstance() {
         if (instance == null) {
+            /*if(personalizedMode){
+             instance = new ConfigSingleton(numCols, numRows, deltaTime); 
+            deltaTime=deltaTime;
+             
+             
+            }else{
+                instance = new ConfigSingleton();
+            }*/
             instance = new ConfigSingleton();
+
         }
         return instance;
     }

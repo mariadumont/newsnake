@@ -93,6 +93,8 @@ public class Board extends JPanel implements ActionListener {
 
         food = null;
         specialFood = null;
+        
+        System.out.println("board constructor: " + ConfigSingleton.getInstance().getDeltaTime());
     }
 
     public void setScoreBoard(ScoreBoard scoreBoard) {
@@ -104,7 +106,7 @@ public class Board extends JPanel implements ActionListener {
         removeKeyListener(myKeyAdepter); 
         addKeyListener(myKeyAdepter);
 
-        ConfigSingleton.getInstance().setDeltaTime(300);
+        ConfigSingleton.getInstance().setDeltaTime(ConfigSingleton.getInstance().getDeltaTimeInit());
         timer.setDelay(ConfigSingleton.getInstance().getDeltaTime());
 
         timer.stop();
@@ -115,6 +117,8 @@ public class Board extends JPanel implements ActionListener {
         snake = new Snake();
 
         food = new Food(snake);
+        
+        System.out.println("board: " + ConfigSingleton.getInstance().getDeltaTime());
 
     }
 

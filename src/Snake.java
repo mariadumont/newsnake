@@ -56,7 +56,8 @@ public class Snake {
 
             case LEFT:
                 if (noWalls && head.getCol() == 0) {
-                    firstNode = new Node(head.row, head.getLastCol()-1, head.color);
+                    //firstNode = new Node(head.row, head.getLastCol()-1, head.color);
+                    firstNode = new Node(head.row, ConfigSingleton.getInstance().getNumCols()-1, head.color);
                 } else {
                     firstNode = new Node(head.row, head.col - 1, head.color);
                 }
@@ -64,7 +65,8 @@ public class Snake {
 
             case UP:
                 if (noWalls && head.getRow() == 0) {
-                    firstNode = new Node(head.getLastRow()-1, head.col, head.color);
+                    //firstNode = new Node(head.getLastRow()-1, head.col, head.color);
+                    firstNode = new Node(ConfigSingleton.getInstance().getNumRows()-1, head.col, head.color);
                 } else {
                     firstNode = new Node(head.row - 1, head.col, head.color);
                 }
@@ -141,7 +143,8 @@ public class Snake {
 
             case LEFT:
                 if (noWalls && head.getCol() == 0) {
-                    nextNode = new Node(head.row, head.getLastCol()-1, Color.red);
+                    //nextNode = new Node(head.row, head.getLastCol()-1, Color.red);
+                    nextNode = new Node(head.row, ConfigSingleton.getInstance().getNumCols()-1, Color.red);
                 } else {
                     nextNode = new Node(head.row, head.col - 1, Color.red);
                 }
@@ -149,7 +152,8 @@ public class Snake {
 
             case UP:
                 if (noWalls && head.getRow() == 0) {
-                    nextNode = new Node(head.getLastRow()-1, head.col, Color.red);
+                    //nextNode = new Node(head.getLastRow()-1, head.col, Color.red);
+                    nextNode = new Node(ConfigSingleton.getInstance().getNumRows()-1, head.col, Color.red);
                 } else {
                     nextNode = new Node(head.row - 1, head.col, Color.red);
                 }
