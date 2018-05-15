@@ -11,7 +11,7 @@ import java.awt.Graphics;
  *
  * @author alu20482156n
  */
-public class Food {
+public abstract class Food {
 
     public Node nodeFood;
     private Snake snake;
@@ -30,6 +30,7 @@ public class Food {
                 }
             }
         }
+             
 
     }
 
@@ -37,8 +38,10 @@ public class Food {
         Util.drawSquare(g, nodeFood, squareWidth, squareHeight);
     }
 
+  
     public int getRandomCol() {
-        return (int) (Math.random() * ConfigSingleton.getInstance().getNumCols()); //(Math.random()*(N - M + 1) + M) Valor entre M y N, ambos incluidos
+        return (int) (Math.random() * ConfigSingleton.getInstance().getNumCols());
+        //(Math.random()*(N - M + 1) + M) Valor entre M y N, ambos incluidos
     }
 
     public int getRandomRow() {
@@ -48,5 +51,4 @@ public class Food {
     public Node getNodeFood() {
         return nodeFood;
     }
-
 }

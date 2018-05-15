@@ -1,4 +1,7 @@
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /*
@@ -43,17 +46,17 @@ public class Cover extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonGo = new javax.swing.JButton();
+        jButtonPlay = new javax.swing.JButton();
         jButtonClassic = new javax.swing.JButton();
         jButtonNoWalls = new javax.swing.JButton();
         jButtonPersonalized = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButtonGo.setText("Go!");
-        jButtonGo.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPlay.setText("PLAY");
+        jButtonPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGoActionPerformed(evt);
+                jButtonPlayActionPerformed(evt);
             }
         });
 
@@ -86,7 +89,7 @@ public class Cover extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(159, 159, 159)
-                        .addComponent(jButtonGo))
+                        .addComponent(jButtonPlay))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(131, 131, 131)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,19 +111,24 @@ public class Cover extends javax.swing.JDialog {
                 .addGap(34, 34, 34)
                 .addComponent(jButtonPersonalized)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(jButtonGo)
+                .addComponent(jButtonPlay)
                 .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoActionPerformed
+    private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         if (modeSelected) {
+            try {
+                ConfigSingleton.getInstance().saveConfigObject();
+            } catch (IOException ex) {
+                Logger.getLogger(Cover.class.getName()).log(Level.SEVERE, null, ex);
+            }
             dispose();
         }
 
-    }//GEN-LAST:event_jButtonGoActionPerformed
+    }//GEN-LAST:event_jButtonPlayActionPerformed
 
     private void jButtonClassicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClassicActionPerformed
         ConfigSingleton.getInstance().setNoWalls(false);
@@ -145,8 +153,8 @@ public class Cover extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClassic;
-    private javax.swing.JButton jButtonGo;
     private javax.swing.JButton jButtonNoWalls;
     private javax.swing.JButton jButtonPersonalized;
+    private javax.swing.JButton jButtonPlay;
     // End of variables declaration//GEN-END:variables
 }

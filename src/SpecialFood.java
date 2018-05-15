@@ -35,22 +35,13 @@ public class SpecialFood extends Food implements ActionListener {
         nodeFood.color = Color.PINK;
         timer.start();
 
-        /* delay = 1000;
-
-        this.actionToPreform = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-
-                if (visibleTime > 0) {
-                    visibleTime--;
-                    board.displayTimeLeft();
-                }
-            }
-        };
-
-        timerCountDown = new Timer(delay, actionToPreform);*/
     }
 
+    public Timer getTimer() {
+        return timer;
+    }
+    
+    
     public int getRandomTime() {
         return (int) (Math.random() * 21 + 10) * 1000;
     }
@@ -73,5 +64,9 @@ public class SpecialFood extends Food implements ActionListener {
     public int getRandomScore() {
         return (int) (Math.random() * 3 + 3); //entre 3 y 5
     }
+    
+ 
+
+   
 
 }

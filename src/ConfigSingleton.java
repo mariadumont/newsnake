@@ -1,35 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-//crear factory comidas
-//guardar carchivo ConfigSingleton ObjectOutput...
-//cuenta atras...
-/**
- *
- * @author alu20482156n
- */
-public class ConfigSingleton {
+
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class ConfigSingleton implements Serializable {
 
     private static ConfigSingleton instance = null;
 
     private int score;
     private int level;
     private boolean noWalls;
-    // private boolean personalizedMode;
-
     private int numRows;
     private int numCols;
     private int deltaTime;
-
-    /*private static int numRows;
-    private static int numCols;
-    private static int deltaTime;*/
-    private int deltaTimeInit;
-
-    private Personalized personalized;
-    //private Cover cover;
+    private int deltaTimeConfig;
+    private int countFood;
 
     public int getScore() {
         return score;
@@ -55,38 +40,6 @@ public class ConfigSingleton {
         this.deltaTime = deltaTime;
     }
 
-    /*private ConfigSingleton() {
-
-        score = 0;
-        level = 1;
-        noWalls = false;
-        numCols = 20;
-        numRows = 20;
-   
-       if(Cover.personalizedMode){
-           deltaTime=Integer.parseInt(personalized.getjTextFieldSpeed().getText());
-       }else{
-           deltaTime = 200;
-       }
-  
-        deltaTimeInit = deltaTime;
- 
-        System.out.println(deltaTime);
-
-    }*/
-
- /*private ConfigSingleton() {
-
-        score = 0;
-        level = 1;
-        noWalls = false;
-        numCols = 20;
-        numRows = 20;
-        deltaTime = 1500;
-        deltaTimeInit = deltaTime;
-        personalizedMode = false;
-
-    }*/
     private ConfigSingleton() {
 
         score = 0;
@@ -94,25 +47,29 @@ public class ConfigSingleton {
         noWalls = false;
         numCols = 20;
         numRows = 20;
-        deltaTime = Integer.parseInt(personalized.jTextFieldSpeed);
-        deltaTimeInit = deltaTime;
+        deltaTime = 300;
+        deltaTimeConfig = deltaTime;
+        countFood = 0;
 
     }
 
-    /*private ConfigSingleton(int numCols, int numRows, int deltaTime) {
-
-        score = 0;
-        level = 1;
-        noWalls = false;
-        this.numCols = numCols;
-        this.numRows = numRows;
-        this.deltaTime = deltaTime;
-        deltaTimeInit = deltaTime;
-
-    }*/
-    public int getDeltaTimeInit() {
-        return deltaTimeInit;
+    public int getCountFood() {
+        return countFood;
     }
+
+    public void setCountFood(int countFood) {
+        this.countFood = countFood;
+    }
+    
+    public int getDeltaTimeConfig() {
+        return deltaTimeConfig;
+    }
+
+    public void setDeltaTimeConfig(int deltaTimeConfig) {
+        this.deltaTimeConfig = deltaTimeConfig;
+    }
+    
+    
 
     public boolean getNoWalls() {
         return noWalls;
@@ -124,16 +81,7 @@ public class ConfigSingleton {
 
     public static ConfigSingleton getInstance() {
         if (instance == null) {
-            /*if(personalizedMode){
-             instance = new ConfigSingleton(numCols, numRows, deltaTime); 
-            deltaTime=deltaTime;
-             
-             
-            }else{
-                instance = new ConfigSingleton();
-            }*/
             instance = new ConfigSingleton();
-
         }
         return instance;
     }
@@ -153,4 +101,22 @@ public class ConfigSingleton {
     public void setNumCols(int numCols) {
         this.numCols = numCols;
     }
+
+    public void saveConfigObject() throws IOException {
+        ObjectOutputStream output = null;
+        try {
+            output = new ObjectOutputStream(new FileOutputStream("ConfigObject.data"));
+            output.writeObject(instance);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+
+        } finally {
+            if (output != null) {
+                output.close();
+            }
+        }
+
+    }
+
 }

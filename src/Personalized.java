@@ -6,7 +6,6 @@ import javax.swing.JTextField;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author alu20482156n
@@ -23,8 +22,7 @@ public class Personalized extends javax.swing.JDialog {
         initComponents();
         radioButtonSelected = false;
         setLocationRelativeTo(null);
-        
-        ConfigSingleton.getInstance().setDeltaTime(Integer.parseInt(jTextFieldSpeed.getText()));
+
     }
 
     /**
@@ -53,14 +51,14 @@ public class Personalized extends javax.swing.JDialog {
 
         jLabel2.setText("Num Rows:");
 
-        jTextFieldNumCols.setText("Introduce num cols");
+        jTextFieldNumCols.setText("20");
         jTextFieldNumCols.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNumColsActionPerformed(evt);
             }
         });
 
-        jTextFieldNumRows.setText("Introduce num rows");
+        jTextFieldNumRows.setText("20");
         jTextFieldNumRows.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNumRowsActionPerformed(evt);
@@ -160,25 +158,21 @@ public class Personalized extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (radioButtonSelected) {
+            ConfigSingleton.getInstance().setDeltaTime(Integer.parseInt(jTextFieldSpeed.getText()));
+            ConfigSingleton.getInstance().setDeltaTimeConfig(Integer.parseInt(jTextFieldSpeed.getText()));
+            ConfigSingleton.getInstance().setNumCols(Integer.parseInt(jTextFieldNumCols.getText()));
+            ConfigSingleton.getInstance().setNumRows(Integer.parseInt(jTextFieldNumRows.getText()));
             dispose();
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextFieldSpeedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSpeedActionPerformed
-        //ConfigSingleton.getInstance().setDeltaTime(Integer.parseInt(jTextFieldSpeed.getText()));
-        
-        //Integer.parseInt(jTextFieldSpeed.getText());
-        Integer.parseInt(jTextFieldSpeed.getText());
+
     }//GEN-LAST:event_jTextFieldSpeedActionPerformed
 
-    public JTextField getjTextFieldSpeed() {
-        return jTextFieldSpeed;
-    }
-
-
     private void jTextFieldNumRowsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumRowsActionPerformed
-        ConfigSingleton.getInstance().setNumRows(Integer.parseInt(jTextFieldNumRows.getText()));
+
     }//GEN-LAST:event_jTextFieldNumRowsActionPerformed
 
     private void jRadioButtonClassicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonClassicActionPerformed

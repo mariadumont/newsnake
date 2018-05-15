@@ -9,15 +9,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 import javax.swing.Timer;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author alu20482156n
- */
 public class Board extends JPanel implements ActionListener {
 
     class MyKeyAdapter extends KeyAdapter {
@@ -67,7 +58,7 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
-    private Food food;
+    private NormalFood normalFood;
     private SpecialFood specialFood;
     private Snake snake;
 
@@ -77,6 +68,8 @@ public class Board extends JPanel implements ActionListener {
     private ScoreBoard scoreBoard;
 
     private JFrame parentFrame;
+
+    private FoodFactory foodFactory;
 
     public void setParentFrame(JFrame parentFrame) {
         this.parentFrame = parentFrame;
@@ -91,10 +84,11 @@ public class Board extends JPanel implements ActionListener {
         myKeyAdepter = new MyKeyAdapter();
         snake = new Snake();
 
-        food = null;
+        foodFactory = new FoodFactory(this, snake);
+
+        normalFood = null;
         specialFood = null;
-        
-        System.out.println("board constructor: " + ConfigSingleton.getInstance().getDeltaTime());
+
     }
 
     public void setScoreBoard(ScoreBoard scoreBoard) {
@@ -103,10 +97,10 @@ public class Board extends JPanel implements ActionListener {
 
     public void initGame() {
 
-        removeKeyListener(myKeyAdepter); 
+        removeKeyListener(myKeyAdepter);
         addKeyListener(myKeyAdepter);
 
-        ConfigSingleton.getInstance().setDeltaTime(ConfigSingleton.getInstance().getDeltaTimeInit());
+        ConfigSingleton.getInstance().setDeltaTime(ConfigSingleton.getInstance().getDeltaTimeConfig());
         timer.setDelay(ConfigSingleton.getInstance().getDeltaTime());
 
         timer.stop();
@@ -116,10 +110,18 @@ public class Board extends JPanel implements ActionListener {
 
         snake = new Snake();
 
-        food = new Food(snake);
-        
-        System.out.println("board: " + ConfigSingleton.getInstance().getDeltaTime());
+        createFood();
 
+
+    }
+
+    public void createFood() {
+        Food food = foodFactory.createFood();
+        if (food instanceof NormalFood) {
+            normalFood = (NormalFood) food;
+        } else {
+            specialFood = (SpecialFood) food;
+        }
     }
 
     private int squareWidth() {
@@ -134,8 +136,9 @@ public class Board extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         snake.drawSnake(g, squareWidth(), squareHeight());
-        if (food != null) {
-            food.drawFood(g, squareWidth(), squareHeight());
+
+        if (normalFood != null) {
+            normalFood.drawFood(g, squareWidth(), squareHeight());
         }
         if (specialFood != null) {
             specialFood.drawFood(g, squareWidth(), squareHeight());
@@ -183,34 +186,32 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void eat() {
-        if (snake.getNodeHead().checkNodesHit(snake.getNodeHead(), food.getNodeFood())) {
+        if (normalFood != null) {
+            if (snake.getNodeHead().checkNodesHit(snake.getNodeHead(), normalFood.getNodeFood())) {
 
-            scoreBoard.increment(1);
-            incrementLevel();
+                scoreBoard.increment(1);
+                incrementLevel();
+                normalFood = null;
 
-            food = new Food(snake);
+                createFood();
 
-            if (scoreBoard.getScore() % 3 == 0) {
-                specialFood = new SpecialFood(snake, this);
-
+                snake.setCountGrowSnake(1);
             }
-
-            snake.setCountGrowSnake(1);
         }
+
     }
 
     public void eatSpecialFood() {
         if (specialFood != null) {
-
-            //scoreBoard.specialFoodTime();
             if (snake.getNodeHead().checkNodesHit(snake.getNodeHead(), specialFood.getNodeFood())) {
                 scoreBoard.increment(specialFood.getRandomScore());
 
                 snake.setCountGrowSnake(specialFood.getRandomScore());
                 incrementLevel();
                 specialFood = null;
-
+                createFood();
             }
+
         }
     }
 
@@ -264,6 +265,7 @@ public class Board extends JPanel implements ActionListener {
 
     public void removeSpecialFood() {
         specialFood = null;
+        createFood();
     }
 
     /* public Timer displayTimeLeft() {
