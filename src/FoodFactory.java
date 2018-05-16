@@ -10,9 +10,9 @@
  */
 public class FoodFactory {
 
-    private static Snake snake;
+    private Snake snake;
     Board board;
-    Snake sanke;
+    
 
     public FoodFactory(Board board, Snake snake) {
         this.board = board;
@@ -21,7 +21,6 @@ public class FoodFactory {
     }
 
     public Food createFood() {
-        //ConfigSingleton.getInstance().setCountFood(ConfigSingleton.getInstance().getCountFood() + 1);
 
         if (ConfigSingleton.getInstance().getCountFood() % 2 == 0 && ConfigSingleton.getInstance().getCountFood() != 0) {
             ConfigSingleton.getInstance().setCountFood(0);

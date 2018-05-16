@@ -82,13 +82,9 @@ public class Board extends JPanel implements ActionListener {
 
         timer = new Timer(ConfigSingleton.getInstance().getDeltaTime(), this);
         myKeyAdepter = new MyKeyAdapter();
-        snake = new Snake();
-
-        foodFactory = new FoodFactory(this, snake);
 
         normalFood = null;
         specialFood = null;
-
     }
 
     public void setScoreBoard(ScoreBoard scoreBoard) {
@@ -100,8 +96,8 @@ public class Board extends JPanel implements ActionListener {
         removeKeyListener(myKeyAdepter);
         addKeyListener(myKeyAdepter);
 
-        ConfigSingleton.getInstance().setDeltaTime(ConfigSingleton.getInstance().getDeltaTimeConfig());
-        timer.setDelay(ConfigSingleton.getInstance().getDeltaTime());
+        ConfigSingleton.getInstance().setDeltaTime(ConfigSingleton.getInstance().getDeltaTimeInit());
+        timer.setDelay(ConfigSingleton.getInstance().getDeltaTimeInit());
 
         timer.stop();
         timer.start();
@@ -109,10 +105,9 @@ public class Board extends JPanel implements ActionListener {
         scoreBoard.reset();
 
         snake = new Snake();
+        foodFactory = new FoodFactory(this, snake);
 
         createFood();
-
-
     }
 
     public void createFood() {
@@ -135,7 +130,10 @@ public class Board extends JPanel implements ActionListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        snake.drawSnake(g, squareWidth(), squareHeight());
+        if (snake != null) {
+            snake.drawSnake(g, squareWidth(), squareHeight());
+
+        }
 
         if (normalFood != null) {
             normalFood.drawFood(g, squareWidth(), squareHeight());
@@ -194,6 +192,9 @@ public class Board extends JPanel implements ActionListener {
                 normalFood = null;
 
                 createFood();
+                if (specialFood != null) {
+                    createFood();
+                }
 
                 snake.setCountGrowSnake(1);
             }
@@ -209,7 +210,7 @@ public class Board extends JPanel implements ActionListener {
                 snake.setCountGrowSnake(specialFood.getRandomScore());
                 incrementLevel();
                 specialFood = null;
-                createFood();
+
             }
 
         }
@@ -265,7 +266,7 @@ public class Board extends JPanel implements ActionListener {
 
     public void removeSpecialFood() {
         specialFood = null;
-        createFood();
+
     }
 
     /* public Timer displayTimeLeft() {

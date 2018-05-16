@@ -15,7 +15,7 @@ public class Game extends javax.swing.JFrame {
      */
     public Game() {
         initComponents();
-        Cover cover=new Cover(this, rootPaneCheckingEnabled);
+        Cover cover = new Cover(this, rootPaneCheckingEnabled);
         cover.setVisible(true);
 
         setLocationRelativeTo(null); //centra el JPanel
@@ -84,6 +84,7 @@ public class Game extends javax.swing.JFrame {
     private void iniGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniGameActionPerformed
         board.initGame();
         scoreBoard.reset();
+        ConfigSingleton.getInstance().setCountFood(0);
 
     }//GEN-LAST:event_iniGameActionPerformed
 

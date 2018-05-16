@@ -13,7 +13,7 @@ public class ConfigSingleton implements Serializable {
     private int numRows;
     private int numCols;
     private int deltaTime;
-    private int deltaTimeConfig;
+    private int deltaTimeInit;
     private int countFood;
 
     public int getScore() {
@@ -40,6 +40,10 @@ public class ConfigSingleton implements Serializable {
         this.deltaTime = deltaTime;
     }
 
+    public void setDeltaTimeInit(int deltaTimeInit) {
+        this.deltaTimeInit = deltaTimeInit;
+    }
+    
     private ConfigSingleton() {
 
         score = 0;
@@ -48,7 +52,7 @@ public class ConfigSingleton implements Serializable {
         numCols = 20;
         numRows = 20;
         deltaTime = 300;
-        deltaTimeConfig = deltaTime;
+        deltaTimeInit = deltaTime;
         countFood = 0;
 
     }
@@ -61,15 +65,11 @@ public class ConfigSingleton implements Serializable {
         this.countFood = countFood;
     }
     
-    public int getDeltaTimeConfig() {
-        return deltaTimeConfig;
-    }
+    
 
-    public void setDeltaTimeConfig(int deltaTimeConfig) {
-        this.deltaTimeConfig = deltaTimeConfig;
+    public int getDeltaTimeInit() {
+        return deltaTimeInit;
     }
-    
-    
 
     public boolean getNoWalls() {
         return noWalls;

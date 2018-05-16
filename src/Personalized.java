@@ -159,7 +159,8 @@ public class Personalized extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (radioButtonSelected) {
             ConfigSingleton.getInstance().setDeltaTime(Integer.parseInt(jTextFieldSpeed.getText()));
-            ConfigSingleton.getInstance().setDeltaTimeConfig(Integer.parseInt(jTextFieldSpeed.getText()));
+            ConfigSingleton.getInstance().setDeltaTimeInit(Integer.parseInt(jTextFieldSpeed.getText()));
+
             ConfigSingleton.getInstance().setNumCols(Integer.parseInt(jTextFieldNumCols.getText()));
             ConfigSingleton.getInstance().setNumRows(Integer.parseInt(jTextFieldNumRows.getText()));
             dispose();
