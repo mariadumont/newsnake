@@ -238,7 +238,6 @@ public class Board extends JPanel implements ActionListener {
             return true;
         }
         if (noWalls == false && (snake.hitWall() || snake.hitItself())) {
-            gameOver();
             return true;
         }
         return false;

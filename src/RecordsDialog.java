@@ -29,7 +29,8 @@ public class RecordsDialog extends javax.swing.JDialog {
         }
     }
 
-    private static final String RECORDS_FILE_NAME = "records.txt";
+    private static final String RECORDS_FILE_NAME_CLASSIC = "recordsClassicSnake.txt";
+    private static final String RECORDS_FILE_NAME_NO_WALLS = "recordsNoWalls.txt";
     private int score;
     private JLabel[] recordLabels;
     private int minRecord;
@@ -52,7 +53,7 @@ public class RecordsDialog extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
-         processRecords();
+        processRecords();
     }
 
     private void initRecordLabels() {
@@ -65,7 +66,7 @@ public class RecordsDialog extends javax.swing.JDialog {
         recordLabels[4] = jLabelRecord5;
 
     }
-    
+
     public void processRecords() {
         jLabelCurrentScore.setText("Your score: " + score);
         if (score > minRecord) {
@@ -79,9 +80,17 @@ public class RecordsDialog extends javax.swing.JDialog {
     private void readRecords() throws IOException {
         BufferedReader input = null;
 
+        
         try {
-            input = new BufferedReader(new FileReader(RECORDS_FILE_NAME));
 
+            
+            if (ConfigSingleton.getInstance().getNoWalls()) {
+                input = new BufferedReader(new FileReader(RECORDS_FILE_NAME_NO_WALLS));
+            }
+            if (ConfigSingleton.getInstance().getNoWalls() == false) {
+                input = new BufferedReader(new FileReader(RECORDS_FILE_NAME_CLASSIC));
+            }
+           
             int lineCount = 0;
             String line;
             String[] lineRecord = null;
@@ -94,13 +103,13 @@ public class RecordsDialog extends javax.swing.JDialog {
 
                 listOfRecords.add(new Record(Integer.parseInt(lineRecord[0]), lineRecord[1]));
             }
-            if (lineCount > 0 && lineCount >= 5) {
+
+            if (lineCount == 5) {
                 try {
                     minRecord = Integer.parseInt(lineRecord[0]);
                 } catch (NumberFormatException ex) {
                     ex.printStackTrace();
                 }
-
             }
 
         } finally {
@@ -114,12 +123,18 @@ public class RecordsDialog extends javax.swing.JDialog {
     private void saveRecords() throws IOException {
         PrintWriter output = null;
         try {
-            output = new PrintWriter(new FileWriter(RECORDS_FILE_NAME));
+            if (ConfigSingleton.getInstance().getNoWalls()) {
+                output = new PrintWriter(new FileWriter(RECORDS_FILE_NAME_NO_WALLS));
+            }
+            if (ConfigSingleton.getInstance().getNoWalls() == false) {
+                output = new PrintWriter(new FileWriter(RECORDS_FILE_NAME_CLASSIC));
+            }
+
             int lineCounter = 0;
             boolean alredyWrittenScore = false;
 
             for (Record record : listOfRecords) {
-                if (record.record > score && !alredyWrittenScore) {
+                if (score > record.record && !alredyWrittenScore) {
 
                     output.println(score + ", " + jTextFieldName.getText());
                     alredyWrittenScore = true;
@@ -241,6 +256,7 @@ public class RecordsDialog extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
+        
         if (score > minRecord) {
             try {
                 saveRecords();
