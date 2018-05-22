@@ -20,10 +20,9 @@ public class SpecialFood extends Food implements ActionListener {
     private int visibleTime;
     private Timer timer;
     private Board board;
-
-    //  public static Timer timerCountDown;
+ 
     private ScoreBoard scoreBoard;
-    private int delay;
+ 
 
     //  ActionListener actionToPreform;
     public SpecialFood(Snake snake, Board board) {

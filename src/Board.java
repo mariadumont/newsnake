@@ -188,7 +188,7 @@ public class Board extends JPanel implements ActionListener {
             if (snake.getNodeHead().checkNodesHit(snake.getNodeHead(), normalFood.getNodeFood())) {
 
                 scoreBoard.increment(1);
-                incrementLevel();
+                makeFaster();
                 normalFood = null;
 
                 createFood();
@@ -208,28 +208,27 @@ public class Board extends JPanel implements ActionListener {
                 scoreBoard.increment(specialFood.getRandomScore());
 
                 snake.setCountGrowSnake(specialFood.getRandomScore());
-                incrementLevel();
+
                 specialFood = null;
+       
+                makeFaster();
 
             }
 
         }
     }
 
-    public void incrementLevel() {
+    public void makeFaster() {
         if (scoreBoard.getScore() % 5 == 0) {
-            if (ConfigSingleton.getInstance().getDeltaTime() >= 50) {
+            if (ConfigSingleton.getInstance().getDeltaTime() > 70) {
                 ConfigSingleton.getInstance().setDeltaTime(ConfigSingleton.getInstance().getDeltaTime() - 50);
-                scoreBoard.setLevel(scoreBoard.getLevel() + 1);
-                timer.setDelay(ConfigSingleton.getInstance().getDeltaTime());
 
-            } else {
-                scoreBoard.setLevel(scoreBoard.getLevel() + 1);
                 timer.setDelay(ConfigSingleton.getInstance().getDeltaTime());
-
             }
         }
     }
+
+ 
 
     public boolean isGameOver() {
         boolean noWalls = ConfigSingleton.getInstance().getNoWalls();

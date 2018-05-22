@@ -27,6 +27,8 @@ public class ScoreBoard extends JLabel {
 
     public void increment(int points) {
         ConfigSingleton.getInstance().setScore(ConfigSingleton.getInstance().getScore() + points);
+        
+        ConfigSingleton.getInstance().setLevel((ConfigSingleton.getInstance().getScore() / 5)+1);
 
         setText("Level: " + ConfigSingleton.getInstance().getLevel() + " · Score: " + ConfigSingleton.getInstance().getScore());
 
@@ -42,16 +44,5 @@ public class ScoreBoard extends JLabel {
         return ConfigSingleton.getInstance().getScore();
     }
 
-    public int getLevel() {
-        return ConfigSingleton.getInstance().getLevel();
-    }
-
-    public void setLevel(int level) {
-        ConfigSingleton.getInstance().setLevel(level);
-    }
-
-    /*public void specialFoodTime() {
-        
-        setText("Level: " + level + " · Score: " + score + " · Time: " + SpecialFood.timerCountDown);
-    }*/
+   
 }

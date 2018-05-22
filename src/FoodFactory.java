@@ -22,7 +22,7 @@ public class FoodFactory {
 
     public Food createFood() {
 
-        if (ConfigSingleton.getInstance().getCountFood() % 2 == 0 && ConfigSingleton.getInstance().getCountFood() != 0) {
+        if (ConfigSingleton.getInstance().getCountFood() % 5 == 0 && ConfigSingleton.getInstance().getCountFood() != 0) {
             ConfigSingleton.getInstance().setCountFood(0);
             return new SpecialFood(snake, board);
         } else {
