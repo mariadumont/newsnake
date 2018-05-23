@@ -23,6 +23,8 @@ public class Cover extends javax.swing.JDialog {
     public static boolean personalizedMode;
 
     private JFrame parentFrame;
+    private Board board;
+    private ScoreBoard scoreBoard;
 
     public void setParentFrame(JFrame parentFrame) {
         this.parentFrame = parentFrame;
@@ -35,6 +37,8 @@ public class Cover extends javax.swing.JDialog {
 
         modeSelected = false;
         personalizedMode = true;
+        board = null;
+        scoreBoard=null;
     }
 
     /**
@@ -122,11 +126,17 @@ public class Cover extends javax.swing.JDialog {
         if (modeSelected) {
             try {
                 ConfigSingleton.getInstance().saveConfigObject();
+
             } catch (IOException ex) {
                 Logger.getLogger(Cover.class.getName()).log(Level.SEVERE, null, ex);
             }
             dispose();
+            if (board != null) {
+                board.initGame();
+                ConfigSingleton.getInstance().setCountFood(0);
+            }
             
+
         }
 
     }//GEN-LAST:event_jButtonPlayActionPerformed

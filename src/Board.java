@@ -62,7 +62,7 @@ public class Board extends JPanel implements ActionListener {
     private SpecialFood specialFood;
     private Snake snake;
 
-    private Timer timer;
+    public Timer timer;
 
     private MyKeyAdapter myKeyAdepter;
     private ScoreBoard scoreBoard;
@@ -92,6 +92,7 @@ public class Board extends JPanel implements ActionListener {
         this.scoreBoard = scoreBoard;
     }
 
+   
     public void initGame() {
 
         removeKeyListener(myKeyAdepter);
@@ -271,8 +272,8 @@ public class Board extends JPanel implements ActionListener {
     }
     
     public void initCounter() {
-        CountDown cd = new CountDown(labelCountDown, this);
-        cd.timerDisplay();
+        CountDown countDown = new CountDown(labelCountDown, this);
+        countDown.timerDisplay();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

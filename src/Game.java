@@ -20,9 +20,9 @@ public class Game extends javax.swing.JFrame {
 
         setLocationRelativeTo(null); //centra el JPanel
         board.setScoreBoard(scoreBoard);
-        
-        board.setLabelCountDown(countDown);
-        
+
+        board.setLabelCountDown(jLabelCountDown);
+
         board.initCounter();
     }
 
@@ -37,7 +37,7 @@ public class Game extends javax.swing.JFrame {
 
         scoreBoard = new ScoreBoard();
         board = new Board();
-        countDown = new javax.swing.JLabel();
+        jLabelCountDown = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         iniGame = new javax.swing.JMenuItem();
@@ -48,28 +48,35 @@ public class Game extends javax.swing.JFrame {
         scoreBoard.setText("Level: 1 · Score: 0");
         getContentPane().add(scoreBoard, java.awt.BorderLayout.PAGE_END);
 
-        countDown.setText("jLabel1");
+        jLabelCountDown.setFont(new java.awt.Font("Lucida Grande", 0, 140)); // NOI18N
+        jLabelCountDown.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelCountDown.setText("0");
+        jLabelCountDown.setToolTipText("");
+        jLabelCountDown.setAlignmentY(0.0F);
+        jLabelCountDown.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout boardLayout = new javax.swing.GroupLayout(board);
         board.setLayout(boardLayout);
         boardLayout.setHorizontalGroup(
             boardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(boardLayout.createSequentialGroup()
-                .addGap(161, 161, 161)
-                .addComponent(countDown)
-                .addContainerGap(194, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, boardLayout.createSequentialGroup()
+                .addContainerGap(158, Short.MAX_VALUE)
+                .addComponent(jLabelCountDown)
+                .addGap(153, 153, 153))
         );
         boardLayout.setVerticalGroup(
             boardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(boardLayout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addComponent(countDown)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(jLabelCountDown)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         getContentPane().add(board, java.awt.BorderLayout.CENTER);
 
         jMenu1.setText("Game");
+        jMenu1.setAlignmentX(0.0F);
+        jMenu1.setAlignmentY(0.0F);
 
         iniGame.setText("Init Game");
         iniGame.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +108,15 @@ public class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_iniGameActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        if (!board.timer.isRunning()) {
+            scoreBoard.resume();
+            board.timer.start();
+        } else {
+            board.timer.stop();
+            scoreBoard.pause();
+
+        }
+        
         RecordsDialog d = new RecordsDialog(this, true, scoreBoard.getScore());
         d.setVisible(true);
 
@@ -143,8 +159,8 @@ public class Game extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Board board;
-    private javax.swing.JLabel countDown;
     private javax.swing.JMenuItem iniGame;
+    private javax.swing.JLabel jLabelCountDown;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

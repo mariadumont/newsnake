@@ -51,16 +51,8 @@ public class Node {
         return 0;
     }
 
-    /*public int getLastCol() {
-        return ConfigSingleton.getInstance().getNumCols();
-    }*/
-
     public int getFirstRow() {
         return 0;
     }
-
-    /*public int getLastRow() {
-        return ConfigSingleton.getInstance().getNumRows();
-    }*/
 
 }
