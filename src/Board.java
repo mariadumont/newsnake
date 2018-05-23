@@ -70,6 +70,7 @@ public class Board extends JPanel implements ActionListener {
     private JFrame parentFrame;
 
     private FoodFactory foodFactory;
+    private JLabel labelCountDown;
 
     public void setParentFrame(JFrame parentFrame) {
         this.parentFrame = parentFrame;
@@ -210,7 +211,7 @@ public class Board extends JPanel implements ActionListener {
                 snake.setCountGrowSnake(specialFood.getRandomScore());
 
                 specialFood = null;
-       
+
                 makeFaster();
 
             }
@@ -227,8 +228,6 @@ public class Board extends JPanel implements ActionListener {
             }
         }
     }
-
- 
 
     public boolean isGameOver() {
         boolean noWalls = ConfigSingleton.getInstance().getNoWalls();
@@ -267,9 +266,14 @@ public class Board extends JPanel implements ActionListener {
 
     }
 
-    /* public Timer displayTimeLeft() {
-        return specialFood.timerCountDown;
-    }*/
+    public void setLabelCountDown(JLabel labelCountDown) {
+        this.labelCountDown = labelCountDown;
+    }
+    
+    public void initCounter() {
+        CountDown cd = new CountDown(labelCountDown, this);
+        cd.timerDisplay();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

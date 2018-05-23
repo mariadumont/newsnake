@@ -126,6 +126,7 @@ public class Cover extends javax.swing.JDialog {
                 Logger.getLogger(Cover.class.getName()).log(Level.SEVERE, null, ex);
             }
             dispose();
+            
         }
 
     }//GEN-LAST:event_jButtonPlayActionPerformed

@@ -20,6 +20,10 @@ public class Game extends javax.swing.JFrame {
 
         setLocationRelativeTo(null); //centra el JPanel
         board.setScoreBoard(scoreBoard);
+        
+        board.setLabelCountDown(countDown);
+        
+        board.initCounter();
     }
 
     /**
@@ -33,6 +37,7 @@ public class Game extends javax.swing.JFrame {
 
         scoreBoard = new ScoreBoard();
         board = new Board();
+        countDown = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         iniGame = new javax.swing.JMenuItem();
@@ -43,15 +48,23 @@ public class Game extends javax.swing.JFrame {
         scoreBoard.setText("Level: 1 · Score: 0");
         getContentPane().add(scoreBoard, java.awt.BorderLayout.PAGE_END);
 
+        countDown.setText("jLabel1");
+
         javax.swing.GroupLayout boardLayout = new javax.swing.GroupLayout(board);
         board.setLayout(boardLayout);
         boardLayout.setHorizontalGroup(
             boardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(boardLayout.createSequentialGroup()
+                .addGap(161, 161, 161)
+                .addComponent(countDown)
+                .addContainerGap(194, Short.MAX_VALUE))
         );
         boardLayout.setVerticalGroup(
             boardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 264, Short.MAX_VALUE)
+            .addGroup(boardLayout.createSequentialGroup()
+                .addGap(122, 122, 122)
+                .addComponent(countDown)
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         getContentPane().add(board, java.awt.BorderLayout.CENTER);
@@ -130,6 +143,7 @@ public class Game extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Board board;
+    private javax.swing.JLabel countDown;
     private javax.swing.JMenuItem iniGame;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
